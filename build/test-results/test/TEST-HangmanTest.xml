@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HangmanTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2017-06-29T17:01:58" hostname="epicodus-10.local" time="0.002">
+  <properties/>
+  <testcase name="generateRandomWord_ReceiveRandomWord_True" classname="HangmanTest" time="0.001"/>
+  <testcase name="letterIsInWord_SeesThatALetterIsInWord_True" classname="HangmanTest" time="0.0"/>
+  <testcase name="letterIsInWord_SeesThatALetterIsNotInWord_False" classname="HangmanTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
