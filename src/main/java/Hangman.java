@@ -1,21 +1,22 @@
 import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Random;
 
 public class Hangman {
   private String mSecretWord;
   private String[] mExpectedWords = {"apple", "phone", "these", "watermelon", "jackets"};
   private List<String> guessedLetters = new ArrayList<String>();
-  private int WrongGuesses;
-  private boolean alive;
-  private boolean winner;
+  private int mWrongGuesses;
+  private boolean mAlive;
+  private boolean mWinner;
 
+  // Hangman Constructor
   public Hangman() {
-    //initializa a new game
+    //initialize a new game
     setSecretWord();
-    WrongGuesses = 0;
-    alive = true;
-    winner = false;
+    mWrongGuesses = 0;
+    mAlive = true;
+    mWinner = false;
   }
 
   public void putGuessedLetter(String putLetter) {
@@ -26,15 +27,20 @@ public class Hangman {
     return mSecretWord;
   }
 
-  //test method
+  ///////////////////////////
+  //test methods
+  ///////////////////////////
+
   public void testSecretWord(String setString){
     mSecretWord = setString;
   }
 
-  //test method
   public List<String> getGuessedLetters(){
     return guessedLetters;
   }
+
+  // end test methods
+  ///////////////////////////
 
   public String setSecretWord(){
     Random randomNumber = new Random();
@@ -43,18 +49,18 @@ public class Hangman {
     return mSecretWord;
   }
 
-  //getter to see if we're still alive
+  //getter to see if we're still mAlive
   public boolean stillAlive(){
-    return alive;
+    return mAlive;
   }
 
-  //getter to see if we have a winner
+  //getter to see if we have a mWinner
   public boolean weHaveAWinner(){
-    return winner;
+    return mWinner;
   }
 
   public boolean letterIsInWord(String guessedLetter){
-    //for each letter in secretword loop
+    //for each letter in secret word
     int pos = mSecretWord.indexOf(guessedLetter);
       if (pos == -1) {
           // letter not found
@@ -65,11 +71,24 @@ public class Hangman {
           // CAUTION: it might also exist in later positions!
           return true;
       }
-    //return true i
   }
 
-  public String drawUnderscores(String word){
-    char[] lettersInWord = word.toCharArray();
+  public String drawGallow() {
+    // added an extra arraylist item as a work around for an ugly bug.
+    ArrayList<String> deadman = new ArrayList<String>(Arrays.asList(" ","O","/","|","\\","|","/","\\"));
+    ArrayList<String> hungman = new ArrayList<String>(Arrays.asList(" "," "," "," "," "," "," "," "));
+
+    for (int i=0;i<=mWrongGuesses;i++){
+      hungman.set( i, deadman.get(i) );
+    }
+
+  String gallow = String.format("-----|--\n|   %s%s\n|   %s%s%s\n|    %s\n|   %s %s\n|\n---------\n        |\n",hungman.get(0),hungman.get(1),hungman.get(2),hungman.get(3),hungman.get(4),hungman.get(5),hungman.get(6),hungman.get(7));
+    return gallow;
+  }
+
+
+  public String drawUnderscores(){
+    char[] lettersInWord = mSecretWord.toCharArray();
     String returnString = "";
 
     for (char letter : lettersInWord) {
@@ -86,15 +105,17 @@ public class Hangman {
 
   public String play(String guessedLetter){
     putGuessedLetter(guessedLetter); //put guessedLetter in guessed array (method)
-    String attempt = drawUnderscores(mSecretWord); //draw what's to be displayed
+    String attempt = drawUnderscores(); //draw what's to be displayed
 
     if(letterIsInWord(guessedLetter)){
       if(!attempt.contains("_")) {
-        winner = true;
-      }//test to see if Drawn == Secretword we have a winner
+        mWinner = true;
+      }//test to see if Drawn == Secretword we have a mWinner
     } else {
-      WrongGuesses++;
-      if (WrongGuesses==7) {alive=false;}
+
+      mWrongGuesses++;
+
+      if (mWrongGuesses==7) {mAlive=false;}
       //if the counter is 7 your dead
     }
 

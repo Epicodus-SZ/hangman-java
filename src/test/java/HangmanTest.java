@@ -43,8 +43,8 @@ public class HangmanTest {
     Hangman testHangman = new Hangman();
     testHangman.putGuessedLetter("a");
     testHangman.putGuessedLetter("c");
-    testHangman.drawUnderscores("taco");
-    assertEquals("_ a c _", testHangman.drawUnderscores("taco"));
+    testHangman.testSecretWord("taco");
+    assertEquals("_ a c _", testHangman.drawUnderscores());
   }
 
   @Test
@@ -53,8 +53,8 @@ public class HangmanTest {
     Hangman testHangman = new Hangman();
     testHangman.putGuessedLetter("a");
     testHangman.putGuessedLetter("c");
-    testHangman.drawUnderscores("taco");
-    assertThat("_ _ c _", not(testHangman.drawUnderscores("taco")));
+    testHangman.testSecretWord("taco");
+    assertThat("_ _ c _", not(testHangman.drawUnderscores()));
   }
 
 
