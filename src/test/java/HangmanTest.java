@@ -1,5 +1,6 @@
 import org.junit.*;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 import java.util.*;
 
 public class HangmanTest {
@@ -27,6 +28,35 @@ public class HangmanTest {
     Hangman testHangman = new Hangman();
     assertEquals(true, testHangman.letterIsInWord("e"));
   }
+
+  @Test
+  public void putGuessedLetter_CanPutLetterInGuessLetterArray(){
+    Hangman testHangman = new Hangman();
+    testHangman.putGuessedLetter("z");
+    List<String> testLetters = testHangman.getGuessedLetters();
+    assertTrue(testLetters.contains("z"));
+  }
+
+  @Test
+  public void drawUnderscores_ProperlyUnderscoresTheSecretWord_PASS(){
+    boolean expectedOutput = false;
+    Hangman testHangman = new Hangman();
+    testHangman.putGuessedLetter("a");
+    testHangman.putGuessedLetter("c");
+    testHangman.drawUnderscores("taco");
+    assertEquals("_ a c _", testHangman.drawUnderscores("taco"));
+  }
+
+  @Test
+  public void drawUnderscores_ProperlyUnderscoresTheSecretWord_FAIL(){
+    boolean expectedOutput = false;
+    Hangman testHangman = new Hangman();
+    testHangman.putGuessedLetter("a");
+    testHangman.putGuessedLetter("c");
+    testHangman.drawUnderscores("taco");
+    assertThat("_ _ c _", not(testHangman.drawUnderscores("taco")));
+  }
+
 
 
 }
